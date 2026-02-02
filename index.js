@@ -62,8 +62,11 @@ app.use((req,res,next)=>{
 const userRoute=require('./routes/user')
 app.use('/user',userRoute);
 
+const adminRoute=require('./routes/admin');
+app.use('/admin',adminRoute);
+
 app.get('/',(req,res)=>{
-    res.send("Home Page")
+    res.render('home.ejs');
 });
 
 
