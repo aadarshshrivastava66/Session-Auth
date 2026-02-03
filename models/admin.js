@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Same safe fix here also 👇
 const passportLocalMongoose = require('passport-local-mongoose').default;
 
 
