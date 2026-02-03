@@ -2,7 +2,7 @@ const express=require('express')
 const router=express.Router();
 const passport=require('passport')
 const user=require('../models/user');
-
+const {isLogin}=require('../middleware/authorization');
 router.get("/register",(req,res)=>{
     res.render('user/register.ejs');
 })
@@ -29,12 +29,12 @@ router.post('/login',
 
 })
 
-router.get('/dashboard',(req,res)=>{
+router.get('/dashboard',isLogin,(req,res)=>{
     res.render('user/dashborad');
 })
 
 
-router.get('/logout', (req, res, next) => {
+router.get('/logout',isLogin, (req, res, next) => {
   req.logout(function (err) {
     if (err) return next(err);
 

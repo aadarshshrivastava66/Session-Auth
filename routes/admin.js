@@ -2,7 +2,7 @@ const express=require('express');
 const router=express.Router();
 const passport=require('passport');
 const admin=require('../models/admin');
-
+const {isLogin,isAdmin}=require('../middleware/authorization');
 router.get('/register',(req,res)=>{
     res.render('admin/register');
 })
@@ -28,11 +28,11 @@ router.post('/login',passport.authenticate("adminLocal",
     }
 )
 
-router.get('/dashboard',(req,res)=>{
+router.get('/dashboard',isLogin,isAdmin,(req,res)=>{
     res.render('admin/dashboard.ejs')
 })
 
-router.get('/logout',(req,res,next)=>{
+router.get('/logout',isLogin,(req,res,next)=>{
     req.logOut(function (err){
         if(err) return next(err);
         req.session.destroy(()=>{
